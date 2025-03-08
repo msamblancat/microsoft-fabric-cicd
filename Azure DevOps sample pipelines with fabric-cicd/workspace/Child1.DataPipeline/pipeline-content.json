@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "activities": [
+        {
+            "name": "Wait1",
+            "type": "Wait",
+            "dependsOn": [],
+            "typeProperties": {
+                "waitTimeInSeconds": 1
+            }
+        }
+    ],
+    "lastModifiedByObjectId": "a4b9508e-96d8-4512-9afc-d4c60ced334c",
+    "lastPublishTime": "2025-03-07T20:58:24Z"
+}
+}

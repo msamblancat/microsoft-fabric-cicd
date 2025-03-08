@@ -1,0 +1,42 @@
+parameters:
+- name: tenant_id
+  displayName: Tenant Id
+  default: 00000000-0000-0000-0000-000000000000
+- name: target_workspace_id
+  displayName: Target Workspace Id
+  default: 00000000-0000-0000-0000-000000000000
+- name: client_id
+  displayName: Client Id
+  default: 00000000-0000-0000-0000-000000000000
+- name: environment_name
+  displayName: Environmane Name
+  default: PPE
+
+jobs: 
+- job: 'your_job_name'
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.12'
+  - script: |
+      pip install -U pip
+      pip install --upgrade fabric-cicd
+    displayName: 'Install fabric-cicd'
+
+  #Deploy all components that support SPN authentication 
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: 'auth_spn_secret.py'
+    env:
+      CLIENT_ID: ${{ parameters.client_id }}
+      CLIENT_SECRET: $(CLIENT_SECRET) 
+      TENANT_ID: ${{ parameters.tenant_id }}
+      TARGET_WORKSPACE_ID: ${{ parameters.target_workspace_id }}
+      TARGET_ENVIRONMENT_NAME: ${{ parameters.environment_name }}
+
+      
+
